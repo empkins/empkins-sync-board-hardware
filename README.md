@@ -1,6 +1,6 @@
 # EmpkinS Sync Board Hardware & Firmware
 
-This Repository is part of the [EmpkinS Sync Board](https://github.com/empkins/empkins-sync-board) (ESB). The EmpkinS Sync Board can be used to **precisely synchronize different measurement modalities** on hardware level. 
+This Repository is part of the [EmpkinS Sync Board](https://github.com/empkins/empkins-sync-board) (ESB) project. The EmpkinS Sync Board can be used to **precisely synchronize different measurement modalities** on hardware level. 
 
 The corresponding Firmware can be found here. It was developed for the microcontroller *STM32L151C8T6A*.
 It generates different synchronization signals for 7 arbitrary outputs. In addition, it senses the occurrence of an external event through a change of the present level at the Input ports MD6, MD5,  or through its buttons. 

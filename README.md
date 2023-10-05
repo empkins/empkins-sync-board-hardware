@@ -50,7 +50,7 @@ A USB protocol is used as communication interface. You must ensure that you have
 
 ### Command interface
 
-If you are familiar with programming and/or don't want to use the provided [Graphical User Interface](TODO:add link), you can develop your own configuration scripts using the commands from the following tables. 
+If you are familiar with programming and/or don't want to use the provided [Graphical User Interface](https://github.com/empkins/empkins-sync-board-gui), you can develop your own configuration scripts using the commands from the following tables. 
 Using python with `pySerial` interface, this could be as follows:
 First, connect to the serial port. Depending on your OS, this might require admin rights.
 

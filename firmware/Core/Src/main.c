@@ -312,7 +312,7 @@ int main(void)
 		  }
 	  }
 	  //Interrupt signal MD6
-	  if(md6_event){
+	  if(Debounce(MD6_I_GPIO_Port, MD6_I_Pin) && md6_event){
 		  md6_event = 0;
 		  if(start.source == MD6 || stop.source == MD6){
 			  if(measRun == 0){
@@ -328,7 +328,7 @@ int main(void)
 		  }
 	  }
 	  //Interrupt Signal MD5
-	  if(md5_event){
+	  if(Debounce(MD5_I_GPIO_Port, MD5_I_Pin) && md5_event){
 		  md5_event = 0;
 		  if(start.source == MD5 || stop.source == MD5){
 			  if(measRun == 0){
@@ -369,6 +369,7 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -382,6 +383,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -715,14 +717,17 @@ void StartMeasurement(uint8_t usedSource){
 /* function starts a measurement
 * usedSource: signal which triggered the start of the measurement*/
 	if(start.source == usedSource && measRun == 0){
-		InitSignalformAll();
-		HAL_Delay(start.delay);
+//		InitSignalformAll();
+//		HAL_Delay(start.delay);
 		LightLED(ColorGreen);
 		measRun = 1;
 		SendMessage(RunByte, MeasurementRun, 3);
 		stopTime = 0;
 		startTime = HAL_GetTick();
 		HAL_TIM_Base_Start_IT(&htim6);
+		//TEST
+//		HAL_GPIO_WritePin(allDevices[MD1].port_out, allDevices[MD1].pin_out, !HAL_GPIO_ReadPin(allDevices[MD1].port_out, allDevices[MD1].pin_out));
+//		Test ende
 		for(uint8_t i = MD1; i < deviceCount; i++){
 			if(allDevices[i].active){
 				if(allDevices[i].signalform == RisingEdge || allDevices[i].signalform == FallingEdge){
@@ -763,6 +768,9 @@ void WhoAmI(){
 void UpdateStartTrigger(){
 /* function toggles level of all active devices for 4ms when measurement starts*/
 	measTime = HAL_GetTick() - startTime;
+	//TEST
+//	uint32_t runningTime = measTime - allDevices[MD1].delay;
+//	MD_Trigger(allDevices[MD1], runningTime);
 	for(uint8_t i = MD1; i < deviceCount; i++){
 		if(allDevices[i].active && CheckDelay(measTime, allDevices[i].delay)){
 			uint32_t runningTime = measTime - allDevices[i].delay;
@@ -934,5 +942,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

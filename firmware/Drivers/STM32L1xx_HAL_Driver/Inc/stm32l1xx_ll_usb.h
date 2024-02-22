@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    stm32l1xx_ll_usb.h
   * @author  MCD Application Team
-  * @brief   Header file of USB_CDC Low Layer HAL module.
+  * @brief   Header file of USB Low Layer HAL module.
   ******************************************************************************
   * @attention
   *
@@ -40,7 +40,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 
 /**
-  * @brief  USB_CDC Mode definition
+  * @brief  USB Mode definition
   */
 
 
@@ -51,15 +51,15 @@ typedef enum
 } USB_ModeTypeDef;
 
 /**
-  * @brief  USB_CDC Initialization Structure definition
+  * @brief  USB Initialization Structure definition
   */
 typedef struct
 {
   uint32_t dev_endpoints;           /*!< Device Endpoints number.
-                                         This parameter depends on the used USB_CDC core.
+                                         This parameter depends on the used USB core.
                                          This parameter must be a number between Min_Data = 1 and Max_Data = 15 */
 
-  uint32_t speed;                   /*!< USB_CDC Core speed.
+  uint32_t speed;                   /*!< USB Core speed.
                                          This parameter can be any value of @ref PCD_Speed/HCD_Speed
                                                                                  (HCD_SPEED_xxx, HCD_SPEED_xxx) */
 
@@ -106,9 +106,9 @@ typedef struct
   uint8_t   doublebuffer;    /*!< Double buffer enable
                                   This parameter can be 0 or 1                                              */
 
-  uint16_t  tx_fifo_num;     /*!< This parameter is not required by USB_CDC Device FS peripheral, it is used
-                                  only by USB_CDC OTG FS peripheral
-                                  This parameter is added to ensure compatibility across USB_CDC peripherals    */
+  uint16_t  tx_fifo_num;     /*!< This parameter is not required by USB Device FS peripheral, it is used
+                                  only by USB OTG FS peripheral
+                                  This parameter is added to ensure compatibility across USB peripherals    */
 
   uint32_t  maxpacket;       /*!< Endpoint Max packet size
                                   This parameter must be a number between Min_Data = 0 and Max_Data = 64KB  */
@@ -133,7 +133,7 @@ typedef struct
   */
 
 
-/** @defgroup USB_LL_EP0_MPS USB_CDC Low Layer EP0 MPS
+/** @defgroup USB_LL_EP0_MPS USB Low Layer EP0 MPS
   * @{
   */
 #define EP_MPS_64                              0U
@@ -144,7 +144,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup USB_LL_EP_Type USB_CDC Low Layer EP Type
+/** @defgroup USB_LL_EP_Type USB Low Layer EP Type
   * @{
   */
 #define EP_TYPE_CTRL                           0U
@@ -178,7 +178,7 @@ typedef struct
   */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup USB_LL_Exported_Functions USB_CDC Low Layer Exported Functions
+/** @addtogroup USB_LL_Exported_Functions USB Low Layer Exported Functions
   * @{
   */
 
@@ -226,7 +226,7 @@ void              USB_ReadPMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf,
 /**
   * @}
   */
-#endif /* defined (USB_CDC) */
+#endif /* defined (USB) */
 
 #ifdef __cplusplus
 }

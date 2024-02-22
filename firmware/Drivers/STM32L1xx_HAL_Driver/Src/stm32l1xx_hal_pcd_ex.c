@@ -4,7 +4,7 @@
   * @author  MCD Application Team
   * @brief   PCD Extended HAL module driver.
   *          This file provides firmware functions to manage the following
-  *          functionalities of the USB_CDC Peripheral Controller:
+  *          functionalities of the USB Peripheral Controller:
   *           + Extended features functions
   *
   ******************************************************************************
@@ -115,8 +115,8 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr
 
 /**
   * @brief  Software Device Connection,
-  *         this function is not required by USB_CDC OTG FS peripheral, it is used
-  *         only by USB_CDC Device FS peripheral.
+  *         this function is not required by USB OTG FS peripheral, it is used
+  *         only by USB Device FS peripheral.
   * @param  hpcd PCD handle
   * @param  state connection state (0 : disconnected / 1: connected)
   * @retval None
@@ -173,7 +173,7 @@ __weak void HAL_PCDEx_BCD_Callback(PCD_HandleTypeDef *hpcd, PCD_BCD_MsgTypeDef m
 /**
   * @}
   */
-#endif /* defined (USB_CDC) */
+#endif /* defined (USB) */
 #endif /* HAL_PCD_MODULE_ENABLED */
 
 /**

@@ -4,7 +4,7 @@
   * @author  MCD Application Team
   * @brief   PCD HAL module driver.
   *          This file provides firmware functions to manage the following
-  *          functionalities of the USB_CDC Peripheral Controller:
+  *          functionalities of the USB Peripheral Controller:
   *           + Initialization and de-initialization functions
   *           + IO operation functions
   *           + Peripheral Control functions
@@ -25,14 +25,14 @@
      (#) Call HAL_PCD_Init() API to initialize the PCD peripheral (Core, Device core, ...)
 
      (#) Initialize the PCD low level resources through the HAL_PCD_MspInit() API:
-         (##) Enable the PCD/USB_CDC Low Level interface clock using
-              (+++) __HAL_RCC_USB_CLK_ENABLE(); For USB_CDC Device only FS peripheral
+         (##) Enable the PCD/USB Low Level interface clock using
+              (+++) __HAL_RCC_USB_CLK_ENABLE(); For USB Device only FS peripheral
 
          (##) Initialize the related GPIO clocks
          (##) Configure PCD pin-out
          (##) Configure PCD NVIC interrupt
 
-     (#)Associate the Upper USB_CDC device stack to the HAL PCD Driver:
+     (#)Associate the Upper USB device stack to the HAL PCD Driver:
          (##) hpcd.pData = pdev;
 
      (#)Enable PCD transmission and reception:
@@ -272,17 +272,17 @@ __weak void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
 
 #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 /**
-  * @brief  Register a User USB_CDC PCD Callback
+  * @brief  Register a User USB PCD Callback
   *         To be used instead of the weak predefined callback
-  * @param  hpcd USB_CDC PCD handle
+  * @param  hpcd USB PCD handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
-  *          @arg @ref HAL_PCD_SOF_CB_ID USB_CDC PCD SOF callback ID
-  *          @arg @ref HAL_PCD_SETUPSTAGE_CB_ID USB_CDC PCD Setup callback ID
-  *          @arg @ref HAL_PCD_RESET_CB_ID USB_CDC PCD Reset callback ID
-  *          @arg @ref HAL_PCD_SUSPEND_CB_ID USB_CDC PCD Suspend callback ID
-  *          @arg @ref HAL_PCD_RESUME_CB_ID USB_CDC PCD Resume callback ID
-  *          @arg @ref HAL_PCD_CONNECT_CB_ID USB_CDC PCD Connect callback ID
+  *          @arg @ref HAL_PCD_SOF_CB_ID USB PCD SOF callback ID
+  *          @arg @ref HAL_PCD_SETUPSTAGE_CB_ID USB PCD Setup callback ID
+  *          @arg @ref HAL_PCD_RESET_CB_ID USB PCD Reset callback ID
+  *          @arg @ref HAL_PCD_SUSPEND_CB_ID USB PCD Suspend callback ID
+  *          @arg @ref HAL_PCD_RESUME_CB_ID USB PCD Resume callback ID
+  *          @arg @ref HAL_PCD_CONNECT_CB_ID USB PCD Connect callback ID
   *          @arg @ref HAL_PCD_DISCONNECT_CB_ID OTG PCD Disconnect callback ID
   *          @arg @ref HAL_PCD_MSPINIT_CB_ID MspDeInit callback ID
   *          @arg @ref HAL_PCD_MSPDEINIT_CB_ID MspDeInit callback ID
@@ -386,17 +386,17 @@ HAL_StatusTypeDef HAL_PCD_RegisterCallback(PCD_HandleTypeDef *hpcd,
 }
 
 /**
-  * @brief  Unregister an USB_CDC PCD Callback
-  *         USB_CDC PCD callabck is redirected to the weak predefined callback
-  * @param  hpcd USB_CDC PCD handle
+  * @brief  Unregister an USB PCD Callback
+  *         USB PCD callabck is redirected to the weak predefined callback
+  * @param  hpcd USB PCD handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
-  *          @arg @ref HAL_PCD_SOF_CB_ID USB_CDC PCD SOF callback ID
-  *          @arg @ref HAL_PCD_SETUPSTAGE_CB_ID USB_CDC PCD Setup callback ID
-  *          @arg @ref HAL_PCD_RESET_CB_ID USB_CDC PCD Reset callback ID
-  *          @arg @ref HAL_PCD_SUSPEND_CB_ID USB_CDC PCD Suspend callback ID
-  *          @arg @ref HAL_PCD_RESUME_CB_ID USB_CDC PCD Resume callback ID
-  *          @arg @ref HAL_PCD_CONNECT_CB_ID USB_CDC PCD Connect callback ID
+  *          @arg @ref HAL_PCD_SOF_CB_ID USB PCD SOF callback ID
+  *          @arg @ref HAL_PCD_SETUPSTAGE_CB_ID USB PCD Setup callback ID
+  *          @arg @ref HAL_PCD_RESET_CB_ID USB PCD Reset callback ID
+  *          @arg @ref HAL_PCD_SUSPEND_CB_ID USB PCD Suspend callback ID
+  *          @arg @ref HAL_PCD_RESUME_CB_ID USB PCD Resume callback ID
+  *          @arg @ref HAL_PCD_CONNECT_CB_ID USB PCD Connect callback ID
   *          @arg @ref HAL_PCD_DISCONNECT_CB_ID OTG PCD Disconnect callback ID
   *          @arg @ref HAL_PCD_MSPINIT_CB_ID MspDeInit callback ID
   *          @arg @ref HAL_PCD_MSPDEINIT_CB_ID MspDeInit callback ID
@@ -495,10 +495,10 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterCallback(PCD_HandleTypeDef *hpcd, HAL_PCD_Ca
 }
 
 /**
-  * @brief  Register USB_CDC PCD Data OUT Stage Callback
+  * @brief  Register USB PCD Data OUT Stage Callback
   *         To be used instead of the weak HAL_PCD_DataOutStageCallback() predefined callback
   * @param  hpcd PCD handle
-  * @param  pCallback pointer to the USB_CDC PCD Data OUT Stage Callback function
+  * @param  pCallback pointer to the USB PCD Data OUT Stage Callback function
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_PCD_RegisterDataOutStageCallback(PCD_HandleTypeDef *hpcd,
@@ -537,8 +537,8 @@ HAL_StatusTypeDef HAL_PCD_RegisterDataOutStageCallback(PCD_HandleTypeDef *hpcd,
 }
 
 /**
-  * @brief  Unregister the USB_CDC PCD Data OUT Stage Callback
-  *         USB_CDC PCD Data OUT Stage Callback is redirected to the weak HAL_PCD_DataOutStageCallback() predefined callback
+  * @brief  Unregister the USB PCD Data OUT Stage Callback
+  *         USB PCD Data OUT Stage Callback is redirected to the weak HAL_PCD_DataOutStageCallback() predefined callback
   * @param  hpcd PCD handle
   * @retval HAL status
   */
@@ -569,10 +569,10 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterDataOutStageCallback(PCD_HandleTypeDef *hpcd
 }
 
 /**
-  * @brief  Register USB_CDC PCD Data IN Stage Callback
+  * @brief  Register USB PCD Data IN Stage Callback
   *         To be used instead of the weak HAL_PCD_DataInStageCallback() predefined callback
   * @param  hpcd PCD handle
-  * @param  pCallback pointer to the USB_CDC PCD Data IN Stage Callback function
+  * @param  pCallback pointer to the USB PCD Data IN Stage Callback function
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_PCD_RegisterDataInStageCallback(PCD_HandleTypeDef *hpcd,
@@ -611,8 +611,8 @@ HAL_StatusTypeDef HAL_PCD_RegisterDataInStageCallback(PCD_HandleTypeDef *hpcd,
 }
 
 /**
-  * @brief  Unregister the USB_CDC PCD Data IN Stage Callback
-  *         USB_CDC PCD Data OUT Stage Callback is redirected to the weak HAL_PCD_DataInStageCallback() predefined callback
+  * @brief  Unregister the USB PCD Data IN Stage Callback
+  *         USB PCD Data OUT Stage Callback is redirected to the weak HAL_PCD_DataInStageCallback() predefined callback
   * @param  hpcd PCD handle
   * @retval HAL status
   */
@@ -643,10 +643,10 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterDataInStageCallback(PCD_HandleTypeDef *hpcd)
 }
 
 /**
-  * @brief  Register USB_CDC PCD Iso OUT incomplete Callback
+  * @brief  Register USB PCD Iso OUT incomplete Callback
   *         To be used instead of the weak HAL_PCD_ISOOUTIncompleteCallback() predefined callback
   * @param  hpcd PCD handle
-  * @param  pCallback pointer to the USB_CDC PCD Iso OUT incomplete Callback function
+  * @param  pCallback pointer to the USB PCD Iso OUT incomplete Callback function
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_PCD_RegisterIsoOutIncpltCallback(PCD_HandleTypeDef *hpcd,
@@ -685,8 +685,8 @@ HAL_StatusTypeDef HAL_PCD_RegisterIsoOutIncpltCallback(PCD_HandleTypeDef *hpcd,
 }
 
 /**
-  * @brief  Unregister the USB_CDC PCD Iso OUT incomplete Callback
-  *         USB_CDC PCD Iso OUT incomplete Callback is redirected
+  * @brief  Unregister the USB PCD Iso OUT incomplete Callback
+  *         USB PCD Iso OUT incomplete Callback is redirected
   *         to the weak HAL_PCD_ISOOUTIncompleteCallback() predefined callback
   * @param  hpcd PCD handle
   * @retval HAL status
@@ -718,10 +718,10 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterIsoOutIncpltCallback(PCD_HandleTypeDef *hpcd
 }
 
 /**
-  * @brief  Register USB_CDC PCD Iso IN incomplete Callback
+  * @brief  Register USB PCD Iso IN incomplete Callback
   *         To be used instead of the weak HAL_PCD_ISOINIncompleteCallback() predefined callback
   * @param  hpcd PCD handle
-  * @param  pCallback pointer to the USB_CDC PCD Iso IN incomplete Callback function
+  * @param  pCallback pointer to the USB PCD Iso IN incomplete Callback function
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_PCD_RegisterIsoInIncpltCallback(PCD_HandleTypeDef *hpcd,
@@ -760,8 +760,8 @@ HAL_StatusTypeDef HAL_PCD_RegisterIsoInIncpltCallback(PCD_HandleTypeDef *hpcd,
 }
 
 /**
-  * @brief  Unregister the USB_CDC PCD Iso IN incomplete Callback
-  *         USB_CDC PCD Iso IN incomplete Callback is redirected
+  * @brief  Unregister the USB PCD Iso IN incomplete Callback
+  *         USB PCD Iso IN incomplete Callback is redirected
   *         to the weak HAL_PCD_ISOINIncompleteCallback() predefined callback
   * @param  hpcd PCD handle
   * @retval HAL status
@@ -814,7 +814,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterIsoInIncpltCallback(PCD_HandleTypeDef *hpcd)
   */
 
 /**
-  * @brief  Start the USB_CDC device
+  * @brief  Start the USB device
   * @param  hpcd PCD handle
   * @retval HAL status
   */
@@ -832,7 +832,7 @@ HAL_StatusTypeDef HAL_PCD_Start(PCD_HandleTypeDef *hpcd)
 }
 
 /**
-  * @brief  Stop the USB_CDC device.
+  * @brief  Stop the USB device.
   * @param  hpcd PCD handle
   * @retval HAL status
   */
@@ -998,7 +998,7 @@ __weak void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
 }
 
 /**
-  * @brief  USB_CDC Start Of Frame callback.
+  * @brief  USB Start Of Frame callback.
   * @param  hpcd PCD handle
   * @retval None
   */
@@ -1013,7 +1013,7 @@ __weak void HAL_PCD_SOFCallback(PCD_HandleTypeDef *hpcd)
 }
 
 /**
-  * @brief  USB_CDC Reset callback.
+  * @brief  USB Reset callback.
   * @param  hpcd PCD handle
   * @retval None
   */
@@ -1141,7 +1141,7 @@ __weak void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   */
 
 /**
-  * @brief  Connect the USB_CDC device
+  * @brief  Connect the USB device
   * @param  hpcd PCD handle
   * @retval HAL status
   */
@@ -1158,7 +1158,7 @@ HAL_StatusTypeDef HAL_PCD_DevConnect(PCD_HandleTypeDef *hpcd)
 }
 
 /**
-  * @brief  Disconnect the USB_CDC device.
+  * @brief  Disconnect the USB device.
   * @param  hpcd PCD handle
   * @retval HAL status
   */
@@ -1175,7 +1175,7 @@ HAL_StatusTypeDef HAL_PCD_DevDisconnect(PCD_HandleTypeDef *hpcd)
 }
 
 /**
-  * @brief  Set the USB_CDC Device address.
+  * @brief  Set the USB Device address.
   * @param  hpcd PCD handle
   * @param  address new device address
   * @retval HAL status
@@ -1859,7 +1859,7 @@ static HAL_StatusTypeDef HAL_PCD_EP_DB_Transmit(PCD_HandleTypeDef *hpcd,
     }
     else /* Transfer is not yet Done */
     {
-      /* need to Free USB_CDC Buff */
+      /* need to Free USB Buff */
       if ((wEPVal & USB_EP_DTOG_RX) != 0U)
       {
         PCD_FreeUserBuffer(hpcd->Instance, ep->num, 1U);
@@ -1893,7 +1893,7 @@ static HAL_StatusTypeDef HAL_PCD_EP_DB_Transmit(PCD_HandleTypeDef *hpcd,
         /* Set the Double buffer counter for pma buffer1 */
         PCD_SET_EP_DBUF0_CNT(hpcd->Instance, ep->num, ep->is_in, len);
 
-        /* Copy user buffer to USB_CDC PMA */
+        /* Copy user buffer to USB PMA */
         USB_WritePMA(hpcd->Instance, ep->xfer_buff,  ep->pmaaddr0, (uint16_t)len);
       }
     }
@@ -1925,7 +1925,7 @@ static HAL_StatusTypeDef HAL_PCD_EP_DB_Transmit(PCD_HandleTypeDef *hpcd,
       HAL_PCD_DataInStageCallback(hpcd, ep->num);
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 
-      /* need to Free USB_CDC Buff */
+      /* need to Free USB Buff */
       if ((wEPVal & USB_EP_DTOG_RX) == 0U)
       {
         PCD_FreeUserBuffer(hpcd->Instance, ep->num, 1U);
@@ -1933,7 +1933,7 @@ static HAL_StatusTypeDef HAL_PCD_EP_DB_Transmit(PCD_HandleTypeDef *hpcd,
     }
     else /* Transfer is not yet Done */
     {
-      /* need to Free USB_CDC Buff */
+      /* need to Free USB Buff */
       if ((wEPVal & USB_EP_DTOG_RX) == 0U)
       {
         PCD_FreeUserBuffer(hpcd->Instance, ep->num, 1U);
@@ -1966,7 +1966,7 @@ static HAL_StatusTypeDef HAL_PCD_EP_DB_Transmit(PCD_HandleTypeDef *hpcd,
         /* Set the Double buffer counter for pmabuffer1 */
         PCD_SET_EP_DBUF1_CNT(hpcd->Instance, ep->num, ep->is_in, len);
 
-        /* Copy the user buffer to USB_CDC PMA */
+        /* Copy the user buffer to USB PMA */
         USB_WritePMA(hpcd->Instance, ep->xfer_buff,  ep->pmaaddr1, (uint16_t)len);
       }
     }
@@ -1983,7 +1983,7 @@ static HAL_StatusTypeDef HAL_PCD_EP_DB_Transmit(PCD_HandleTypeDef *hpcd,
 /**
   * @}
   */
-#endif /* defined (USB_CDC) */
+#endif /* defined (USB) */
 #endif /* HAL_PCD_MODULE_ENABLED */
 
 /**

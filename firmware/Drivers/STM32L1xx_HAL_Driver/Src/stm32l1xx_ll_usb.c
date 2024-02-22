@@ -2,10 +2,10 @@
   ******************************************************************************
   * @file    stm32l1xx_ll_usb.c
   * @author  MCD Application Team
-  * @brief   USB_CDC Low Layer HAL module driver.
+  * @brief   USB Low Layer HAL module driver.
   *
   *          This file provides firmware functions to manage the following
-  *          functionalities of the USB_CDC Peripheral Controller:
+  *          functionalities of the USB Peripheral Controller:
   *           + Initialization/de-initialization functions
   *           + I/O operation functions
   *           + Peripheral Control functions
@@ -18,7 +18,7 @@
     [..]
       (#) Fill parameters of Init structure in USB_OTG_CfgTypeDef structure.
 
-      (#) Call USB_CoreInit() API to initialize the USB_CDC Core peripheral.
+      (#) Call USB_CoreInit() API to initialize the USB Core peripheral.
 
       (#) The upper HAL HCD/PCD driver will call the right routines for its internal processes.
 
@@ -55,8 +55,8 @@
 
 
 /**
-  * @brief  Initializes the USB_CDC Core
-  * @param  USBx USB_CDC Instance
+  * @brief  Initializes the USB Core
+  * @param  USBx USB Instance
   * @param  cfg pointer to a USB_CfgTypeDef structure that contains
   *         the configuration information for the specified USBx peripheral.
   * @retval HAL status
@@ -67,8 +67,8 @@ HAL_StatusTypeDef USB_CoreInit(USB_TypeDef *USBx, USB_CfgTypeDef cfg)
   UNUSED(USBx);
   UNUSED(cfg);
 
-  /* NOTE : - This function is not required by USB_CDC Device FS peripheral, it is used
-              only by USB_CDC OTG FS peripheral.
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
             - This function is added to ensure compatibility across platforms.
    */
 
@@ -136,15 +136,15 @@ HAL_StatusTypeDef USB_SetCurrentMode(USB_TypeDef *USBx, USB_ModeTypeDef mode)
   UNUSED(USBx);
   UNUSED(mode);
 
-  /* NOTE : - This function is not required by USB_CDC Device FS peripheral, it is used
-              only by USB_CDC OTG FS peripheral.
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
             - This function is added to ensure compatibility across platforms.
    */
   return HAL_OK;
 }
 
 /**
-  * @brief  USB_DevInit Initializes the USB_CDC controller registers
+  * @brief  USB_DevInit Initializes the USB controller registers
   *         for device mode
   * @param  USBx Selected device
   * @param  cfg  pointer to a USB_CfgTypeDef structure that contains
@@ -395,7 +395,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
             PCD_SET_EP_DBUF1_CNT(USBx, ep->num, ep->is_in, len);
             pmabuffer = ep->pmaaddr1;
 
-            /* Write the user buffer to USB_CDC PMA */
+            /* Write the user buffer to USB PMA */
             USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
             ep->xfer_buff += len;
 
@@ -413,7 +413,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
             PCD_SET_EP_DBUF0_CNT(USBx, ep->num, ep->is_in, len);
             pmabuffer = ep->pmaaddr0;
 
-            /* Write the user buffer to USB_CDC PMA */
+            /* Write the user buffer to USB PMA */
             USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
           }
           else
@@ -422,7 +422,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
             PCD_SET_EP_DBUF0_CNT(USBx, ep->num, ep->is_in, len);
             pmabuffer = ep->pmaaddr0;
 
-            /* Write the user buffer to USB_CDC PMA */
+            /* Write the user buffer to USB PMA */
             USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
             ep->xfer_buff += len;
 
@@ -440,7 +440,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
             PCD_SET_EP_DBUF1_CNT(USBx, ep->num, ep->is_in, len);
             pmabuffer = ep->pmaaddr1;
 
-            /* Write the user buffer to USB_CDC PMA */
+            /* Write the user buffer to USB PMA */
             USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
           }
         }
@@ -456,7 +456,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
           PCD_SET_EP_TX_CNT(USBx, ep->num, len);
           pmabuffer = ep->pmaaddr0;
 
-          /* Write the user buffer to USB_CDC PMA */
+          /* Write the user buffer to USB PMA */
           USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
         }
       }/* end if bulk double buffer */
@@ -477,7 +477,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
           PCD_SET_EP_DBUF1_CNT(USBx, ep->num, ep->is_in, len);
           pmabuffer = ep->pmaaddr1;
 
-          /* Write the user buffer to USB_CDC PMA */
+          /* Write the user buffer to USB PMA */
           USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
           ep->xfer_buff += len;
 
@@ -497,7 +497,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
             PCD_SET_EP_DBUF0_CNT(USBx, ep->num, ep->is_in, len);
             pmabuffer = ep->pmaaddr0;
 
-            /* Write the user buffer to USB_CDC PMA */
+            /* Write the user buffer to USB PMA */
             USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
           }
         }
@@ -507,7 +507,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
           PCD_SET_EP_DBUF0_CNT(USBx, ep->num, ep->is_in, len);
           pmabuffer = ep->pmaaddr0;
 
-          /* Write the user buffer to USB_CDC PMA */
+          /* Write the user buffer to USB PMA */
           USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
           ep->xfer_buff += len;
 
@@ -527,7 +527,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
             PCD_SET_EP_DBUF1_CNT(USBx, ep->num, ep->is_in, len);
             pmabuffer = ep->pmaaddr1;
 
-            /* Write the user buffer to USB_CDC PMA */
+            /* Write the user buffer to USB PMA */
             USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
           }
         }
@@ -665,7 +665,7 @@ HAL_StatusTypeDef USB_EPClearStall(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   */
 HAL_StatusTypeDef USB_StopDevice(USB_TypeDef *USBx)
 {
-  /* disable all interrupts and force USB_CDC reset */
+  /* disable all interrupts and force USB reset */
   USBx->CNTR = (uint16_t)USB_CNTR_FRES;
 
   /* clear interrupt status register */
@@ -696,7 +696,7 @@ HAL_StatusTypeDef  USB_SetDevAddress(USB_TypeDef *USBx, uint8_t address)
 }
 
 /**
-  * @brief  USB_DevConnect Connect the USB_CDC device by enabling the pull-up/pull-down
+  * @brief  USB_DevConnect Connect the USB device by enabling the pull-up/pull-down
   * @param  USBx Selected device
   * @retval HAL status
   */
@@ -705,8 +705,8 @@ HAL_StatusTypeDef  USB_DevConnect(USB_TypeDef *USBx)
   /* Prevent unused argument(s) compilation warning */
   UNUSED(USBx);
 
-  /* NOTE : - This function is not required by USB_CDC Device FS peripheral, it is used
-              only by USB_CDC OTG FS peripheral.
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
             - This function is added to ensure compatibility across platforms.
    */
 
@@ -714,7 +714,7 @@ HAL_StatusTypeDef  USB_DevConnect(USB_TypeDef *USBx)
 }
 
 /**
-  * @brief  USB_DevDisconnect Disconnect the USB_CDC device by disabling the pull-up/pull-down
+  * @brief  USB_DevDisconnect Disconnect the USB device by disabling the pull-up/pull-down
   * @param  USBx Selected device
   * @retval HAL status
   */
@@ -723,8 +723,8 @@ HAL_StatusTypeDef  USB_DevDisconnect(USB_TypeDef *USBx)
   /* Prevent unused argument(s) compilation warning */
   UNUSED(USBx);
 
-  /* NOTE : - This function is not required by USB_CDC Device FS peripheral, it is used
-              only by USB_CDC OTG FS peripheral.
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
             - This function is added to ensure compatibility across platforms.
    */
 
@@ -732,7 +732,7 @@ HAL_StatusTypeDef  USB_DevDisconnect(USB_TypeDef *USBx)
 }
 
 /**
-  * @brief  USB_ReadInterrupts return the global USB_CDC interrupt status
+  * @brief  USB_ReadInterrupts return the global USB interrupt status
   * @param  USBx Selected device
   * @retval HAL status
   */
@@ -770,7 +770,7 @@ HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_TypeDef *USBx)
 
 /**
   * @brief Copy a buffer from user memory area to packet memory area (PMA)
-  * @param   USBx USB_CDC peripheral instance register address.
+  * @param   USBx USB peripheral instance register address.
   * @param   pbUsrBuf pointer to user memory area.
   * @param   wPMABufAddr address into PMA.
   * @param   wNBytes no. of bytes to be copied.
@@ -804,7 +804,7 @@ void USB_WritePMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, ui
 
 /**
   * @brief Copy data from packet memory area (PMA) to user memory buffer
-  * @param   USBx USB_CDC peripheral instance register address.
+  * @param   USBx USB peripheral instance register address.
   * @param   pbUsrBuf pointer to user memory area.
   * @param   wPMABufAddr address into PMA.
   * @param   wNBytes no. of bytes to be copied.
@@ -849,7 +849,7 @@ void USB_ReadPMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uin
 /**
   * @}
   */
-#endif /* defined (USB_CDC) */
+#endif /* defined (USB) */
 #endif /* defined (HAL_PCD_MODULE_ENABLED) || defined (HAL_HCD_MODULE_ENABLED) */
 
 /**

@@ -114,6 +114,7 @@ void WhoAmI();
 #define LED_red_GPIO_Port GPIOB
 #define MD2_O_Pin GPIO_PIN_9
 #define MD2_O_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -123,5 +124,3 @@ void WhoAmI();
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

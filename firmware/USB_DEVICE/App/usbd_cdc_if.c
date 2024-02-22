@@ -307,5 +307,3 @@ __weak void CDC_ReceiveCallBack(uint8_t *buf, uint32_t len){
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

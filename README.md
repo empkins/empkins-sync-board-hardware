@@ -208,8 +208,8 @@ except KeyboardInterrupt:
 |0xaa:Hello|0x01: SetStopSource|0x00: USB <br> 0x01:Button1 <br> 0x02:Button2 <br> 0x04: MD5 <br> 0x05: MD6|delay[HighByte]|delay[LowByte]| 0x02:FallingEdge <br> 0x03:RisingEdge <br> 0x04: AnyEdge| | | | | 
 |0xaa:Hello|0x02: SetEvent|0x01:Button1 <br> 0x02:Button2 <br> 0x04: MD5 <br> 0x05: MD6|0x00: not active <br> 0x01: active|0x02:FallingEdge <br> 0x03:RisingEdge <br> 0x04: AnyEdge| | | | | | |
 |0xaa:Hello|0x03: SetOutput|0x00: MD1 <br> 0x01: MD2 <br> 0x02: MD3 <br> 0x03: MD4 <br> 0x04: MD5 <br> 0x05: MD6 <br> 0x06: MD7 |0x00: not active <vr> 0x01: active|delay[HighByte]|delay[LowByte]|0x00:FallingTrigger <br> 0x01:RisingTrigger <br> 0x02: FallingEdge <br> 0x03: RisingEdge <br> 0x05:FallingClock <br> 0x06: RisingClock <br> 0x07:M-Sequence|pulseLength[HighByte]|pulseLength[LowByte]|freq[HighByte]|freq[LowByte]|0x00:noStopTrigger <br> 0x01: stopTrigger|M-Sequence degree|
-|0xaa:Hello|0x05:startMeasurment| | | | | | | | | |
-|0xaa:Hello|0x06:stopMeasurment| | | | | | | | | |
+|0xaa:Hello|0x04:startMeasurment| | | | | | | | | |
+|0xaa:Hello|0x05:stopMeasurment| | | | | | | | | |
 |0xaa:Hello|0x0a: resetErrorState | | | | | | | | | |
 |0xaa:Hello|0xFF: WhoAmI| | | | | | | | | |
 

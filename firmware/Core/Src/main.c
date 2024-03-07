@@ -717,7 +717,6 @@ void StartMeasurement(uint8_t usedSource){
 /* function starts a measurement
 * usedSource: signal which triggered the start of the measurement*/
 	if(start.source == usedSource && measRun == 0){
-		InitSignalformAll();
 		HAL_Delay(start.delay);
 		LightLED(ColorGreen);
 		measRun = 1;
@@ -765,9 +764,7 @@ void WhoAmI(){
 void UpdateStartTrigger(){
 /* function toggles level of all active devices for 4ms when measurement starts*/
 	measTime = HAL_GetTick() - startTime;
-	//TEST
-//	uint32_t runningTime = measTime - allDevices[MD1].delay;
-//	MD_Trigger(allDevices[MD1], runningTime);
+
 	for(uint8_t i = MD1; i < deviceCount; i++){
 		if(allDevices[i].active && CheckDelay(measTime, allDevices[i].delay)){
 			uint32_t runningTime = measTime - allDevices[i].delay;

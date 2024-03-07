@@ -377,7 +377,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;
   RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV3;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -717,17 +717,14 @@ void StartMeasurement(uint8_t usedSource){
 /* function starts a measurement
 * usedSource: signal which triggered the start of the measurement*/
 	if(start.source == usedSource && measRun == 0){
-//		InitSignalformAll();
-//		HAL_Delay(start.delay);
+		InitSignalformAll();
+		HAL_Delay(start.delay);
 		LightLED(ColorGreen);
 		measRun = 1;
 		SendMessage(RunByte, MeasurementRun, 3);
 		stopTime = 0;
 		startTime = HAL_GetTick();
 		HAL_TIM_Base_Start_IT(&htim6);
-		//TEST
-//		HAL_GPIO_WritePin(allDevices[MD1].port_out, allDevices[MD1].pin_out, !HAL_GPIO_ReadPin(allDevices[MD1].port_out, allDevices[MD1].pin_out));
-//		Test ende
 		for(uint8_t i = MD1; i < deviceCount; i++){
 			if(allDevices[i].active){
 				if(allDevices[i].signalform == RisingEdge || allDevices[i].signalform == FallingEdge){

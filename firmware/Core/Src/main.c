@@ -583,31 +583,6 @@ void SetEvent(uint8_t eventSource, uint8_t active, uint8_t signalform){
 	event.source = eventSource;
 	event.active = active;
 	event.signalform = signalform;
-	uint32_t tempFall = 0x00;
-	uint32_t tempRise = 0x00;
-	uint8_t errorMessage = NoSuchSignalform;
-	if(event.source > Button2){
-		tempRise = EXTI->RTSR;
-		tempFall = EXTI->FTSR;
-		CLEAR_BIT(tempRise, (uint32_t) allDevices[eventSource].pin_out);
-		CLEAR_BIT(tempFall, (uint32_t) allDevices[eventSource].pin_out);
-		switch (event.signalform){
-		case RisingEdge:
-			SET_BIT(tempRise, (uint32_t) allDevices[eventSource].pin_out);
-			break;
-		case FallingEdge:
-			SET_BIT(tempFall, (uint32_t) allDevices[eventSource].pin_out);
-			break;
-		case AnyEdge:
-			SET_BIT(tempRise, (uint32_t) allDevices[eventSource].pin_out);
-			SET_BIT(tempFall, (uint32_t) allDevices[eventSource].pin_out);
-			break;
-		default:
-			PrintError(errorMessage);
-		}
-		EXTI->RTSR = tempRise;
-		EXTI->FTSR = tempFall;
-	}
 }
 
 void SetOutput(uint8_t device, uint8_t active, uint16_t delay, uint8_t signalform, uint16_t pulsLength, uint16_t frequency, uint8_t stopTrigger, uint8_t degree /*uint16_t pnDelay*/){
@@ -756,6 +731,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 				md5_event = 1;
 			} else if (stop.signalform == AnyEdge && measRun == 1) {
 				md5_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_SET && event.signalform == RisingEdge) {
+				md5_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_RESET && event.signalform == FallingEdge) {
+				md5_event = 1;
+			} else if (event.signalform == AnyEdge) {
+				md5_event = 1;
 			}
 		}
 	}
@@ -774,6 +755,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_SET && stop.signalform == RisingEdge && measRun == 1) {
 				md6_event = 1;
 			} else if (stop.signalform == AnyEdge && measRun == 1) {
+				md6_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_SET && event.signalform == RisingEdge) {
+				md6_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_RESET && event.signalform == FallingEdge) {
+				md6_event = 1;
+			} else if (event.signalform == AnyEdge) {
 				md6_event = 1;
 			}
 		}

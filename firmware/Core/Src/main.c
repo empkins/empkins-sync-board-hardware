@@ -146,9 +146,13 @@ eventSource event;
 
 static uint8_t measRun = 0;
 uint8_t button1_event = 0;
+uint32_t button1_event_time = 0;
 uint8_t button2_event = 0;
+uint32_t button2_event_time = 0;
 uint8_t md6_event = 0;
+uint32_t md6_event_time = 0;
 uint8_t md5_event = 0;
+uint32_t md5_event_time = 0;
 uint32_t startTime = 0;
 uint32_t measTime = 0;
 uint32_t stopTime = 0;
@@ -281,7 +285,7 @@ int main(void)
   {
 
 	  //Button1 pressed
-	  if(Debounce(Button1_GPIO_Port, Button1_Pin) && button1_event){
+	  if(button1_event){
 		  button1_event = 0;
 		  if(start.source == Button1 || stop.source == Button1){
 			  if(measRun == 0){
@@ -297,7 +301,7 @@ int main(void)
 		  }
 	  }
 	  //Button2 pressed
-	  if(Debounce(Button2_GPIO_Port, Button2_Pin) && button2_event){
+	  if(button2_event){
 		  button2_event = 0;
 		  if(start.source == Button2 || stop.source == Button2){
 			  if(measRun == 0){
@@ -313,9 +317,8 @@ int main(void)
 		  }
 	  }
 	  //Interrupt signal MD6
-	  if(Debounce(MD6_I_GPIO_Port, MD6_I_Pin) && md6_event){
-		  md6_event = 0;
-		  if(start.source == MD6 || stop.source == MD6){
+	  if(md6_event){
+		  if(start.source == MD6){
 			  if(measRun == 0){
 				  StartMeasurement(MD6);
 			  }else{
@@ -327,11 +330,11 @@ int main(void)
 			  uint8_t errorMessage = SourceNotUsed;
 			  PrintError(errorMessage);
 		  }
+		  md6_event = 0;
 	  }
 	  //Interrupt Signal MD5
-	  if(Debounce(MD5_I_GPIO_Port, MD5_I_Pin) && md5_event){
-		  md5_event = 0;
-		  if(start.source == MD5 || stop.source == MD5){
+	  if(md5_event){
+		  if(start.source == MD5){
 			  if(measRun == 0){
 				  StartMeasurement(MD5);
 			  }else{
@@ -343,6 +346,7 @@ int main(void)
 			  uint8_t errorMessage = SourceNotUsed;
 			  PrintError(errorMessage);
 		  }
+		  md5_event = 0;
 	  }
 
 	  //Data received
@@ -446,17 +450,6 @@ void SendMessage(uint8_t feature, uint8_t message, uint8_t length){
 	CDC_Transmit_FS(sendMessage, length);
 }
 
-int Debounce(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin){
-	if(HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == GPIO_PIN_RESET){
-		HAL_Delay(100);
-		if(HAL_GPIO_ReadPin(GPIOx, GPIO_Pin) == GPIO_PIN_SET){
-			HAL_Delay(100);
-			return 1;
-		}
-	}
-	return 0;
-}
-
 void FreeAllMalloc(){
 	for(uint8_t i = MD1; i < deviceCount; i++){
 		free(allDevices[i].mSeq);
@@ -555,9 +548,6 @@ void SetStartSource(uint8_t newStartSource, uint16_t delay, uint8_t signalform){
 * newStartSource: Source of the signal which triggers to start a measurement
 * delay: delay to wait before measurement starts
 * signalform: type of signal which triggers to start a measurement */
-
-	uint32_t tempFall = 0x00;
-	uint32_t tempRise = 0x00;
 	if(newStartSource > MD6){
 		uint8_t errorMessage = NoSuchStartSource;
 		PrintError(errorMessage);
@@ -566,29 +556,6 @@ void SetStartSource(uint8_t newStartSource, uint16_t delay, uint8_t signalform){
 		start.source = newStartSource;
 		start.delay = delay;
 		start.signalform = signalform;
-		uint8_t errorMessage = NoSuchSignalform;
-		if(start.source > Button2){
-			tempRise = EXTI->RTSR;
-			tempFall = EXTI->FTSR;
-			CLEAR_BIT(tempRise, (uint32_t) allDevices[newStartSource].pin_out);
-			CLEAR_BIT(tempFall, (uint32_t) allDevices[newStartSource].pin_out);
-			switch (start.signalform){
-			case RisingEdge:
-				SET_BIT(tempRise, (uint32_t) allDevices[newStartSource].pin_out);
-				break;
-			case FallingEdge:
-				SET_BIT(tempFall, (uint32_t) allDevices[newStartSource].pin_out);
-				break;
-			case AnyEdge:
-				SET_BIT(tempRise, (uint32_t) allDevices[newStartSource].pin_out);
-				SET_BIT(tempFall, (uint32_t) allDevices[newStartSource].pin_out);
-				break;
-			default:
-				PrintError(errorMessage);
-			}
-			EXTI->RTSR = tempRise;
-			EXTI->FTSR = tempFall;
-		}
 	}
 }
 
@@ -597,8 +564,6 @@ void SetStopSource(uint8_t newStopSource, uint16_t delay, uint8_t signalform){
 * newStartSource: Source of the signal which triggers to stop a measurement
 * delay: delay to wait before measurement stops
 * signalform: type of signal which triggers to stop a measurement */
-	uint32_t tempFall = 0x00;
-	uint32_t tempRise = 0x00;
 	if(newStopSource > MD6){
 		uint8_t errorMessage = NoSuchStopSource;
 		PrintError(errorMessage);
@@ -607,29 +572,6 @@ void SetStopSource(uint8_t newStopSource, uint16_t delay, uint8_t signalform){
 		stop.source = newStopSource;
 		stop.delay = delay;
 		stop.signalform = signalform;
-		uint8_t errorMessage = NoSuchSignalform;
-		if(stop.source > Button2){
-			tempRise = EXTI->RTSR;
-			tempFall = EXTI->FTSR;
-			CLEAR_BIT(tempRise, (uint32_t) allDevices[newStopSource].pin_out);
-			CLEAR_BIT(tempFall, (uint32_t) allDevices[newStopSource].pin_out);
-			switch (stop.signalform){
-			case RisingEdge:
-				SET_BIT(tempRise, (uint32_t) allDevices[newStopSource].pin_out);
-				break;
-			case FallingEdge:
-				SET_BIT(tempFall, (uint32_t) allDevices[newStopSource].pin_out);
-				break;
-			case AnyEdge:
-				SET_BIT(tempRise, (uint32_t) allDevices[newStopSource].pin_out);
-				SET_BIT(tempFall, (uint32_t) allDevices[newStopSource].pin_out);
-				break;
-			default:
-				PrintError(errorMessage);
-			}
-			EXTI->RTSR = tempRise;
-			EXTI->FTSR = tempFall;
-		}
 	}
 }
 
@@ -800,11 +742,41 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	}
 	//Interrupt MD5
 	if(GPIO_Pin == MD5_I_Pin){
-		md5_event = 1;
+		if(HAL_GetTick() > (md5_event_time + 10)){
+			md5_event_time = HAL_GetTick();
+			if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_RESET && start.signalform == FallingEdge && measRun == 0){
+				md5_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_SET && start.signalform == RisingEdge  && measRun == 0) {
+				md5_event = 1;
+			} else if (start.signalform == AnyEdge && measRun == 1) {
+				md5_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_RESET && stop.signalform == FallingEdge  && measRun == 1){
+				md5_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_SET && stop.signalform == RisingEdge  && measRun == 1) {
+				md5_event = 1;
+			} else if (stop.signalform == AnyEdge && measRun == 1) {
+				md5_event = 1;
+			}
+		}
 	}
 	//Interrupt MD6
 	if(GPIO_Pin == MD6_I_Pin){
-		md6_event = 1;
+		if(HAL_GetTick() > (md6_event_time + 10)){
+			md6_event_time = HAL_GetTick();
+			if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_RESET && start.signalform == FallingEdge && measRun == 0){
+				md6_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_SET && start.signalform == RisingEdge && measRun == 0) {
+				md6_event = 1;
+			} else if (start.signalform == AnyEdge && measRun == 0) {
+				md6_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_RESET && stop.signalform == FallingEdge && measRun == 1){
+				md6_event = 1;
+			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_SET && stop.signalform == RisingEdge && measRun == 1) {
+				md6_event = 1;
+			} else if (stop.signalform == AnyEdge && measRun == 1) {
+				md6_event = 1;
+			}
+		}
 	}
 }
 

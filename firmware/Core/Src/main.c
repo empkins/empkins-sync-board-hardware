@@ -731,11 +731,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 				md5_event = 1;
 			} else if (stop.signalform == AnyEdge && measRun == 1) {
 				md5_event = 1;
-			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_SET && event.signalform == RisingEdge) {
+			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_SET && event.signalform == RisingEdge && event.source == MD5) {
 				md5_event = 1;
-			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_RESET && event.signalform == FallingEdge) {
+			} else if (HAL_GPIO_ReadPin(MD5_I_GPIO_Port, MD5_I_Pin) == GPIO_PIN_RESET && event.signalform == FallingEdge && event.source == MD5) {
 				md5_event = 1;
-			} else if (event.signalform == AnyEdge) {
+			} else if (event.signalform == AnyEdge && event.source == MD5) {
 				md5_event = 1;
 			}
 		}
@@ -756,11 +756,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 				md6_event = 1;
 			} else if (stop.signalform == AnyEdge && measRun == 1) {
 				md6_event = 1;
-			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_SET && event.signalform == RisingEdge) {
+			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_SET && event.signalform == RisingEdge && event.source == MD6) {
 				md6_event = 1;
-			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_RESET && event.signalform == FallingEdge) {
+			} else if (HAL_GPIO_ReadPin(MD6_I_GPIO_Port, MD6_I_Pin) == GPIO_PIN_RESET && event.signalform == FallingEdge && event.source == MD6) {
 				md6_event = 1;
-			} else if (event.signalform == AnyEdge) {
+			} else if (event.signalform == AnyEdge && event.source == MD6) {
 				md6_event = 1;
 			}
 		}

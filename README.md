@@ -35,7 +35,7 @@ git clone https://github.com/empkins/empkins-sync-board-hardware.git
 
 ## Configure EmpkinS Sync Board for your Measurement Setup
 
-The Sync Board is mounted to a PC via USB, which is also used for serial communication. To configure the behavior of the outputs as well as the measurement start and stop source, the corresponding [Graphical User Interface](TODO:add link) can be used. Alternatively, you can write your own scripts using an API for serial communication of your choice, e.g., [`pySerial`](https://pyserial.readthedocs.io/en/latest/) (requires basic programming skills). See [Command interface](#command-interface) for further details.
+The Sync Board is mounted to a PC via USB, which is also used for serial communication. To configure the behavior of the outputs as well as the measurement start and stop source, the corresponding [Graphical User Interface](https://github.com/empkins/empkins-sync-board-gui) can be used. Alternatively, you can write your own scripts using an API for serial communication of your choice, e.g., [`pySerial`](https://pyserial.readthedocs.io/en/latest/) (requires basic programming skills). See [Command interface](#command-interface) for further details. Additionally, make sure that all jumpers for the activated ports are set.
 
 ## Information for Developers
 

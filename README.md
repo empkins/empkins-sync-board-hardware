@@ -1,20 +1,20 @@
-# EmpkinS Sync Board Hardware & Firmware
+# Open Sync Board Hardware & Firmware
 
-This Repository is part of the [EmpkinS Sync Board](https://github.com/empkins/empkins-sync-board) (ESB) project. The EmpkinS Sync Board can be used to **precisely synchronize different measurement modalities** on hardware level. 
+This Repository is part of the [Open Sync Board](https://github.com/Open/empkins-sync-board) (OSB) project. The Open Sync Board can be used to **precisely synchronize different measurement modalities** on hardware level. 
 
 The corresponding Firmware can be found here. It was developed for the microcontroller *STM32L151C8T6A*.
 It generates different synchronization signals for 7 arbitrary outputs. In addition, it senses the occurrence of an external event through a change of the present level at the Input ports MD6, MD5,  or through its buttons. 
 
 **PCB Overview** <br>
-<img src="./img/Bild_3D_V3.png" width="600" alt="ESB Overview">
+<img src="./img/Bild_3D_V3.png" width="600" alt="OSB Overview">
 
 ## Getting Started
 
 ### Hardware Requirements
 
-First make sure to rebuild the [ESB Hardware](https://365.altium.com/files/B8C35FA4-1EF4-416A-BC0A-35B06F024184) correctly. This link provides the schematic, PCB, 3D view and BOM of the ESB hardware, which can be opened without installing Altium. 
+First make sure to rebuild the [OSB Hardware](https://365.altium.com/files/B8C35FA4-1EF4-416A-BC0A-35B06F024184) correctly. This link provides the schematic, PCB, 3D view and BOM of the OSB hardware, which can be opened without installing Altium. 
 
-### Flash EmpkinS Sync Board
+### Flash Open Sync Board
 
 To flash the firmware on the microcontroller you have to do the following steps.
 
@@ -27,13 +27,13 @@ a local copy of the repository, run the following commands to clone the it:
 git clone https://github.com/empkins/empkins-sync-board-hardware.git
 
 ```
-3. Connect a programming device, such as the [STM Nucleo-64](https://www.st.com/en/evaluation-tools/nucleo-f401re.html) development board, to the EmpkinS Sync Board as shown in the figure. Additionally the board must be supplied via the USB-C Port.
+3. Connect a programming device, such as the [STM Nucleo-64](https://www.st.com/en/evaluation-tools/nucleo-f401re.html) development board, to the Open Sync Board as shown in the figure. Additionally the board must be supplied via the USB-C Port.
 
 <img src="./img/Flashprozess_V3.png" width="1000" alt="flashing process">
 
 4. Run the Code in STMCubeIDE to complete the flashing process.
 
-## Configure EmpkinS Sync Board for your Measurement Setup
+## Configure Open Sync Board for your Measurement Setup
 
 The Sync Board is mounted to a PC via USB, which is also used for serial communication. To configure the behavior of the outputs as well as the measurement start and stop source, the corresponding [Graphical User Interface](https://github.com/empkins/empkins-sync-board-gui) can be used. Alternatively, you can write your own scripts using an API for serial communication of your choice, e.g., [`pySerial`](https://pyserial.readthedocs.io/en/latest/) (requires basic programming skills). See [Command interface](#command-interface) for further details. Additionally, make sure that all jumpers for the activated ports are set.
 
@@ -228,7 +228,7 @@ The repository is structured as follows:
 
 ```bash
 ├── empkins-sync-board-hardware/  
-    └── firmware                                    # firmware code for ESB
+    └── firmware                                    # firmware code for OSB
         ├── .settings                               
         └── Core/                                   # user files         
             ├── inc/                                # Header files    

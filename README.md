@@ -1,6 +1,6 @@
 # Open Sync Board Hardware & Firmware
 
-This Repository is part of the [Open Sync Board](https://github.com/empkins/empkins-sync-board) (OSB) project. The Open Sync Board can be used to **precisely synchronize different measurement modalities** on hardware level. 
+This Repository is part of the [Open Sync Board](https://github.com/empkins/open-sync-board) (OSB) project. The Open Sync Board can be used to **precisely synchronize different measurement modalities** on hardware level. 
 
 The corresponding Firmware can be found here. It was developed for the microcontroller *STM32L151C8T6A*.
 It generates different synchronization signals for 7 arbitrary outputs. In addition, it senses the occurrence of an external event through a change of the present level at the Input ports MD6, MD5,  or through its buttons. 
@@ -24,7 +24,7 @@ To flash the firmware on the microcontroller you have to do the following steps.
 a local copy of the repository, run the following commands to clone the it: 
 
 ```bash
-git clone https://github.com/empkins/empkins-sync-board-hardware.git
+git clone https://github.com/empkins/open-sync-board-hardware.git
 
 ```
 3. Connect a programming device, such as the [STM Nucleo-64](https://www.st.com/en/evaluation-tools/nucleo-f401re.html) development board, to the Open Sync Board as shown in the figure. Additionally the board must be supplied via the USB-C Port.
@@ -35,7 +35,7 @@ git clone https://github.com/empkins/empkins-sync-board-hardware.git
 
 ## Configure Open Sync Board for your Measurement Setup
 
-The Sync Board is mounted to a PC via USB, which is also used for serial communication. To configure the behavior of the outputs as well as the measurement start and stop source, the corresponding [Graphical User Interface](https://github.com/empkins/empkins-sync-board-gui) can be used. Alternatively, you can write your own scripts using an API for serial communication of your choice, e.g., [`pySerial`](https://pyserial.readthedocs.io/en/latest/) (requires basic programming skills). See [Command interface](#command-interface) for further details. Additionally, make sure that all jumpers for the activated ports are set.
+The Sync Board is mounted to a PC via USB, which is also used for serial communication. To configure the behavior of the outputs as well as the measurement start and stop source, the corresponding [Graphical User Interface](https://github.com/empkins/open-sync-board-gui) can be used. Alternatively, you can write your own scripts using an API for serial communication of your choice, e.g., [`pySerial`](https://pyserial.readthedocs.io/en/latest/) (requires basic programming skills). See [Command interface](#command-interface) for further details. Additionally, make sure that all jumpers for the activated ports are set.
 
 ## Information for Developers
 
@@ -50,7 +50,7 @@ A USB protocol is used as communication interface. You must ensure that you have
 
 ### Command interface
 
-If you are familiar with programming and/or don't want to use the provided [Graphical User Interface](https://github.com/empkins/empkins-sync-board-gui), you can develop your own configuration scripts using the commands from the following tables. 
+If you are familiar with programming and/or don't want to use the provided [Graphical User Interface](https://github.com/empkins/open-sync-board-gui), you can develop your own configuration scripts using the commands from the following tables. 
 Using python with `pySerial` interface, this could be as follows:
 First, connect to the serial port. Depending on your OS, this might require admin rights.
 
@@ -227,7 +227,7 @@ except KeyboardInterrupt:
 The repository is structured as follows:
 
 ```bash
-├── empkins-sync-board-hardware/  
+├── open-sync-board-hardware/  
     └── firmware                                    # firmware code for OSB
         ├── .settings                               
         └── Core/                                   # user files         
@@ -253,7 +253,7 @@ The repository is structured as follows:
             └── Target                              # brief explanation, automatically generated
         └── Debug                                   # debugging files, automatically generated
 ```
-Have a look into `empkins-sync-board-hardware/firmware/Core/src/main.c` if you want to make modifications to the connections or the command interface.
+Have a look into `open-sync-board-hardware/firmware/Core/src/main.c` if you want to make modifications to the connections or the command interface.
 
 
 
